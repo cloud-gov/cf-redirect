@@ -4,7 +4,7 @@ Small app to redirect traffic from one domain to another.
 
 ## Usage
 
-In `manifest.yml`, change `TARGET_DOMAIN` to the domain you want to redirect _to_. Change `host` to the domain you want to redirect _from_.
+In `manifest.yml`, change `TARGET_DOMAIN` to the domain you want to redirect _to_. Change `host` to the hostname you want to redirect _from_.
 
 
     $ cf push -f manifest.yml
