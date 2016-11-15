@@ -4,7 +4,7 @@ Small app to redirect traffic from one domain to another.
 
 ## Usage
 
-In `manifest.yml`, change `TARGET_DOMAIN` to the domain you want to redirect _to_. Change `host` to the domain you want to redirect _from_.
+In `manifest.yml`, change `TARGET_DOMAIN` to the domain you want to redirect _to_. Change `host` to the hostname you want to redirect _from_.
 
 
     $ cf push -f manifest.yml
@@ -25,12 +25,12 @@ Then you can add a `path` property to the manifest file to make deployments easy
 ---
 memory: 64MB
 name: cf-redirect
-host: redirect-from-domain.example.com
-path: ./redirects/redirect-from-domain.example.com
+host: redirect-from-domain
+path: ./redirects/redirect-from-domain.apps.cloud.gov
 env:
-  TARGET_DOMAIN: redirect-to-domain.example.com
+  TARGET_DOMAIN: redirect-to-domain.apps.cloud.gov
 ```
 
 Now you can deploy like so.
 
-    $ cf push -f redirects/redirect-from-domain.example.com/manifest.yml
+    $ cf push -f redirects/redirect-from-domain.apps.cloud.gov/manifest.yml
