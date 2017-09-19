@@ -41,3 +41,18 @@ the 301 being cached indefinitely.
 expires 3600;
 return 301 $scheme://$target_domain$request_uri;
 ```
+
+## Use cases
+
+### Serve a notice
+
+Maybe there are a few files you want to serve, rather than redirect. Just
+include them in your directory. The nginx config will look for html files first,
+then fallback to the redirect. This can be used to serve an index.html that
+might have a notice about the redirect. You can use a meta-refresh to redirect
+the user after a few seconds.
+
+Include this line in your index.html `<head>` to redirect the user after 10
+seconds.
+
+    <meta http-equiv="refresh" content="10;url=https://your-target-domain.example.com">
