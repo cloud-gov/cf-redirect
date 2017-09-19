@@ -20,18 +20,6 @@ these files to a `redirects/<redirect-from-domain>` dir in the app you're
 redirecting _to_. This way all the redirects to your app are stored in a single
 repo.
 
-Then you can add a `path` property to the manifest file to make deployments easy.
-
-```
----
-memory: 64MB
-name: cf-redirect
-host: redirect-from-domain
-path: ./redirects/redirect-from-domain.apps.cloud.gov
-env:
-  TARGET_DOMAIN: redirect-to-domain.apps.cloud.gov
-```
-
 Now you can deploy like so.
 
     $ cf push -f redirects/redirect-from-domain.apps.cloud.gov/manifest.yml
