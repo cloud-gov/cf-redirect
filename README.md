@@ -20,18 +20,6 @@ these files to a `redirects/<redirect-from-domain>` dir in the app you're
 redirecting _to_. This way all the redirects to your app are stored in a single
 repo.
 
-Then you can add a `path` property to the manifest file to make deployments easy.
-
-```
----
-memory: 64MB
-name: cf-redirect
-host: redirect-from-domain
-path: ./redirects/redirect-from-domain.apps.cloud.gov
-env:
-  TARGET_DOMAIN: redirect-to-domain.apps.cloud.gov
-```
-
 Now you can deploy like so.
 
     $ cf push -f redirects/redirect-from-domain.apps.cloud.gov/manifest.yml
@@ -53,3 +41,34 @@ the 301 being cached indefinitely.
 expires 3600;
 return 301 $scheme://$target_domain$request_uri;
 ```
+
+
+## Use cases
+
+
+### Serve a notice
+
+Maybe there are a few files you want to serve, rather than redirect. Just
+include them in your directory. The nginx config will look for html files first,
+then fallback to the redirect. This can be used to serve an index.html that
+might have a notice about the redirect. You can use a meta-refresh to redirect
+the user after a few seconds.
+
+Include this line in your index.html `<head>` to redirect the user after 10
+seconds.
+
+    <meta http-equiv="refresh" content="10;url=https://your-target-domain.example.com">
+
+
+### Redirect to homepage
+
+By default, the nginx config includes the URI path in the redirect. If the URLs
+on your old site don't match the new site, the redirect will end up with a 404.
+If you'd rather redirect to the homepage, you can remove the `$request_uri` from
+the `return` line.
+
+      return 302 $redirect_scheme://$target_domain$request_uri;
+
+Changes to:
+
+      return 302 $redirect_scheme://$target_domain;

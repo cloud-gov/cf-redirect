@@ -3,5 +3,6 @@ buildpack: staticfile_buildpack
 memory: 64MB
 name: cf-redirect
 host: redirect-from-domain
+path: .
 env:
   TARGET_DOMAIN: redirect-to-domain.apps.cloud.gov
