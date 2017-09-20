@@ -42,7 +42,9 @@ expires 3600;
 return 301 $scheme://$target_domain$request_uri;
 ```
 
+
 ## Use cases
+
 
 ### Serve a notice
 
@@ -56,3 +58,17 @@ Include this line in your index.html `<head>` to redirect the user after 10
 seconds.
 
     <meta http-equiv="refresh" content="10;url=https://your-target-domain.example.com">
+
+
+### Redirect to homepage
+
+By default, the nginx config includes the URI path in the redirect. If the URLs
+on your old site don't match the new site, the redirect will end up with a 404.
+If you'd rather redirect to the homepage, you can remove the `$request_uri` from
+the `return` line.
+
+      return 302 $redirect_scheme://$target_domain$request_uri;
+
+Changes to:
+
+      return 302 $redirect_scheme://$target_domain;
